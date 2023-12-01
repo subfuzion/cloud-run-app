@@ -3,7 +3,7 @@ import { Server } from "node:http";
 import { AddressInfo } from "node:net";
 import process from "node:process";
 
-const app = express();
+export const app = express();
 
 // Request middleware
 app.use(express.urlencoded({ extended: true }));
@@ -17,18 +17,20 @@ app.get("/", (req: Request, res: Response): void => {
   res.send("ok");
 });
 
-app.get("/hello", (req: Request, res: Response): void => {
-  res.send("Hello!");
+app.head("/api", (req: Request, res: Response): void => {
+  res.send({});
 });
 
-app.head("/api", (_: Request, res: Response): void => {
-  res.send();
-});
-
-app.get("/api/hello", (_: Request, res: Response): void => {
+app.get("/api/ping", (req: Request, res: Response): void => {
   res.send({
-    ok: true,
-    message: "Hello World!",
+    message: "ok",
+  });
+});
+
+app.post("/api/echo", (req: Request, res: Response): void => {
+  const message = req.body.message;
+  res.send({
+    message: message,
   });
 });
 
