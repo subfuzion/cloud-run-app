@@ -12,6 +12,8 @@ npx create-cloud-run-app [path]
 > - If `path` isn't specified, it defaults to the current working directory (`.`).
 > - The directory under `path` must be empty.
 
+See [article on dev.to] for more details.
+
 Configuration boilerplate includes:
 
 -   [TypeScript]
@@ -64,6 +66,7 @@ npx github:subfuzion/create-cloud-run-app [path]
 
 Licensed under [MIT].
 
+[article on dev.to]: https://dev.to/subfuzion/cloud-run-typescript-boilerplate-for-getting-started-4gco
 [create-cloud-run-app]: https://github.com/subfuzion/create-cloud-run-app/
 [EditorConfig]: https://editorconfig.org/
 [ESLint]: https://eslint.org/
