@@ -1,10 +1,10 @@
 # Overview
 
 This is a starter Node.js app configured for TypeScript. The app is generated
-using [@subfuzion/create-cloud-run-app]:
+using [create-cloud-run-app]:
 
 ```
-npx @subfuzion/create-cloud-run-app [path]
+npx create-cloud-run-app [path]
 ```
 
 > **Note**
@@ -43,17 +43,18 @@ on file changes under the `src` or `test` directories, and also re-run tests.
 
 There is also a `prepare` script that configures a git `commit` hook (using
 [Husky]) for linting. You need to run this if you cloned this repo instead of
-generating the app using [@subfuzion/create-cloud-run-app].
+generating the app using [create-cloud-run-app].
 
 ## Notes
 
 To use the latest published version of [@subfuzion/create-cloud-run-app], enter:
 
 ```
-npx @subfuzion/create-cloud-run-app@latest [path]
+npx create-cloud-run-app@latest [path]
 ```
 
-If you want to use the latest version from the GitHub [repo], enter:
+If you want to use the latest version [create-cloud-run-app] version from the
+GitHub repo, enter:
 
 ```
 npx github:subfuzion/create-cloud-run-app [path]
@@ -63,7 +64,7 @@ npx github:subfuzion/create-cloud-run-app [path]
 
 Licensed under [MIT].
 
-[@subfuzion/create-cloud-run-app]: https://github.com/subfuzion/create-cloud-run-app/
+[create-cloud-run-app]: https://github.com/subfuzion/create-cloud-run-app/
 [EditorConfig]: https://editorconfig.org/
 [ESLint]: https://eslint.org/
 [Express]: https://expressjs.com/
