@@ -10,7 +10,8 @@ module.exports = {
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
   transform: {
-    "^.+\\.tsx?$": ["ts-jest",
+    "^.+\\.tsx?$": [
+      "ts-jest",
       {
         tsconfig: "tsconfig.json",
         useESM: true,

@@ -24,6 +24,7 @@
     "check": "prettier --check .",
     "format": "prettier --write .",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules --no-warnings=ExperimentalWarning\" jest --no-cache --silent",
+    "test:smoke": "npm test -- ./test/smoke.test.ts",
     "test:coverage": "npm run test --coverage",
     "test:serial": "npm test -- --runInBand",
     "test:watch": "npm test -- --watch",
