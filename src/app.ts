@@ -64,7 +64,7 @@ export async function start(port: number | string): Promise<Server> {
   return new Promise((resolve) => {
     server = app
       .listen(port, () => {
-        let address = server.address() as AddressInfo;
+        const address = server.address() as AddressInfo;
         console.log(`Listening on http://localhost:${address.port}`);
         ["SIGTERM", "SIGINT"].forEach((signal): void => {
           process.on(signal, stop);

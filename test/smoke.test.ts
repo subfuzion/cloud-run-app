@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, describe, expect, test } from "@jest/globals";
 import { Server } from "node:http";
-import { env } from "node:process";
+import { AddressInfo } from "node:net";
+import { env, stdout } from "node:process";
 import supertest from "supertest";
 
 /**
@@ -25,13 +26,23 @@ const port = process.env["PORT"] || "0";
 
 let server: Server;
 let request: supertest.SuperTest<supertest.Test>;
+const headers: any = {};
+const description = url
+  ? `Remote smoke tests for: ${url}`
+  : `Local smoke tests ${port === "0" ? "" : `on port ${port}`}`;
 
 beforeAll(async () => {
   if (!url) {
     server = await start(port);
     request = supertest(app);
+    const address = server.address() as AddressInfo;
+    stdout.write(`Service URL: http://localhost:${address.port}\n`);
   } else {
     request = supertest(url);
+    // For some reason, supertest isn't setting the user-agent
+    // In any case, setting to "smoke-test" looks nice in the logs
+    headers["User-Agent"] = "smoke-test";
+    stdout.write(`Service URL: ${url}\n`);
   }
 });
 
@@ -41,19 +52,19 @@ afterAll(async () => {
   }
 });
 
-describe("smoke tests", () => {
+describe(description, () => {
   test("HEAD /", async () => {
     const route = "/";
-    await request.head(route).expect(200);
+    await request.head(route).set(headers).expect(200);
   });
   test("GET /", async () => {
     const route = "/";
-    const res = await request.get(route).expect(200);
+    const res = await request.get(route).set(headers).expect(200);
     expect(res.text).toBe("ok");
   });
   test("GET /api/ping", async () => {
     const route = "/api/ping";
-    const res = await request.get(route).expect(200);
+    const res = await request.get(route).set(headers).expect(200);
     expect(res.body.message).toBe("ok");
   });
   test("POST /api/echo", async () => {
@@ -61,7 +72,11 @@ describe("smoke tests", () => {
     const message = {
       message: "hello",
     };
-    const res = await request.post(route).send(message).expect(200);
+    const res = await request
+      .post(route)
+      .set(headers)
+      .send(message)
+      .expect(200);
     expect(res.body.message).toBe("hello");
   });
 });

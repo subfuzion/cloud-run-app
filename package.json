@@ -1,5 +1,5 @@
 {
-  "name": "@subfuzion/cloud-run-app",
+  "name": "cloud-run-app",
   "private": true,
   "description": "Node.js app with TypeScript for Cloud Run",
   "version": "0.2.0",
@@ -24,6 +24,8 @@
     "check": "prettier --check .",
     "format": "prettier --write .",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules --no-warnings=ExperimentalWarning\" jest --no-cache --silent",
+    "test:unit": "npm test -- ./src/",
+    "test:integration": "npm test -- ./test/",
     "test:smoke": "npm test -- ./test/smoke.test.ts",
     "test:coverage": "npm run test --coverage",
     "test:serial": "npm test -- --runInBand",
