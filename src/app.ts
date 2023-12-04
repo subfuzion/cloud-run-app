@@ -3,6 +3,12 @@ import { Server } from "node:http";
 import { AddressInfo } from "node:net";
 import process from "node:process";
 
+import { getDefaultLogger } from "./lib/log.js";
+
+const log = getDefaultLogger();
+
+// Create express app
+
 export const app = express();
 
 // Request middleware
@@ -32,6 +38,12 @@ app.post("/api/echo", (req: Request, res: Response): void => {
   res.send({
     message: message,
   });
+});
+
+app.post("/api/log", (req: Request, res: Response): void => {
+  const message = req.body.message;
+  log.info(message);
+  res.send();
 });
 
 // Error middleware
