@@ -1,4 +1,8 @@
+import { access, constants, lstat } from "node:fs/promises";
+import { join, parse } from "node:path";
 import { env } from "node:process";
+import { dirname } from "node:path";
+import { fileURLToPath } from 'node:url';
 
 /**
  * Returns the package name if the process was started with npm (or if the
@@ -17,4 +21,24 @@ export function getPackageName(shouldThrow = false): string {
     );
   }
   return name;
+}
+
+export async function getPackageRoot(): Promise<string> {
+  let dir = dirname(fileURLToPath(import.meta.url));
+  const { root } = parse(dir);
+
+  while (dir && dir !== root) {
+    const f = join(dir, "package.json");
+    console.log("checking: " + f);
+    try {
+      await access(f);
+      console.log("found: " + f);
+      return dir;
+    } catch {
+      // keep looking
+      console.log("not found: " + f);
+    }
+    dir = dirname(dir);
+  }
+  return dir;
 }
